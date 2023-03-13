@@ -13,7 +13,7 @@ guard let pathString = Bundle.main.object(forInfoDictionaryKey: "LlamaModelPath"
   exit(1)
 }
 
-guard let url = URL(string: pathString), url.isFileURL else {
+guard let url = URL(string: pathString), FileManager.default.fileExists(atPath: url.path) else {
   print("Invalid model path, make sure this is a file URL")
   exit(1)
 }
