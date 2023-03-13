@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger numberOfThreads;
 @property (nonatomic, assign) NSUInteger numberOfTokens;
 
+@property (nullable, copy) NSString *reversePrompt;
+
 @end
 
 NS_ASSUME_NONNULL_END

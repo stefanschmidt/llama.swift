@@ -11,5 +11,6 @@
 
 @synthesize numberOfThreads;
 @synthesize numberOfTokens;
+@synthesize reversePrompt;
 
 @end

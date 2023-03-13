@@ -757,8 +757,12 @@ void sigint_handler(int signo) {
 #endif
 
 void gpt_params_parse(const _LlamaRunnerBridgeConfig *config, gpt_params &params) {
-  params.n_threads = config.numberOfThreads;
-  params.n_predict = config.numberOfTokens;
+  params.n_threads = (int)config.numberOfThreads;
+  params.n_predict = (int)config.numberOfTokens;
+
+  if (config.reversePrompt != nil) {
+    params.antiprompt = [config.reversePrompt cStringUsingEncoding:NSUTF8StringEncoding];
+  }
 }
 
 @interface _LlamaRunnerBridge ()
