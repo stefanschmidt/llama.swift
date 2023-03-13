@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		82293E3D29BDC4ED00C67BD9 /* llama.h in Headers */ = {isa = PBXBuildFile; fileRef = 82293E3C29BDC4ED00C67BD9 /* llama.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82293E4629BDC51E00C67BD9 /* ggml.c in Sources */ = {isa = PBXBuildFile; fileRef = 82293E4429BDC51E00C67BD9 /* ggml.c */; };
-		82293E4729BDC51E00C67BD9 /* ggml.h in Headers */ = {isa = PBXBuildFile; fileRef = 82293E4529BDC51E00C67BD9 /* ggml.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		82293E4B29BDC53D00C67BD9 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82293E4829BDC53D00C67BD9 /* utils.cpp */; };
-		82293E4C29BDC53D00C67BD9 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 82293E4929BDC53D00C67BD9 /* utils.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		82293E4D29BDC53D00C67BD9 /* quantize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82293E4A29BDC53D00C67BD9 /* quantize.cpp */; };
 		82293E5229BDC5DE00C67BD9 /* LlamaRunnerBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 82293E5029BDC5DE00C67BD9 /* LlamaRunnerBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82293E5329BDC5DE00C67BD9 /* LlamaRunnerBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 82293E5129BDC5DE00C67BD9 /* LlamaRunnerBridge.mm */; };
 		82293E5B29BDC71700C67BD9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82293E5A29BDC71700C67BD9 /* main.swift */; };
 		82293E6229BDC73100C67BD9 /* llama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82293E3929BDC4ED00C67BD9 /* llama.framework */; };
 		82293E6529BDC7E200C67BD9 /* LlamaRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82293E6429BDC7E200C67BD9 /* LlamaRunner.swift */; };
+		82819F8329BF2BFC00399B7E /* ggml.c in Sources */ = {isa = PBXBuildFile; fileRef = 82819F7D29BF2BFC00399B7E /* ggml.c */; };
+		82819F8429BF2BFC00399B7E /* quantize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82819F7E29BF2BFC00399B7E /* quantize.cpp */; };
+		82819F8629BF2BFC00399B7E /* ggml.h in Headers */ = {isa = PBXBuildFile; fileRef = 82819F8029BF2BFC00399B7E /* ggml.h */; };
+		82819F8729BF2BFC00399B7E /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82819F8129BF2BFC00399B7E /* utils.cpp */; };
+		82819F8829BF2BFC00399B7E /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 82819F8229BF2BFC00399B7E /* utils.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,11 +45,6 @@
 /* Begin PBXFileReference section */
 		82293E3929BDC4ED00C67BD9 /* llama.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = llama.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82293E3C29BDC4ED00C67BD9 /* llama.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = llama.h; sourceTree = "<group>"; };
-		82293E4429BDC51E00C67BD9 /* ggml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ggml.c; sourceTree = SOURCE_ROOT; };
-		82293E4529BDC51E00C67BD9 /* ggml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ggml.h; sourceTree = SOURCE_ROOT; };
-		82293E4829BDC53D00C67BD9 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = SOURCE_ROOT; };
-		82293E4929BDC53D00C67BD9 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = SOURCE_ROOT; };
-		82293E4A29BDC53D00C67BD9 /* quantize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = quantize.cpp; sourceTree = SOURCE_ROOT; };
 		82293E5029BDC5DE00C67BD9 /* LlamaRunnerBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LlamaRunnerBridge.h; sourceTree = "<group>"; };
 		82293E5129BDC5DE00C67BD9 /* LlamaRunnerBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LlamaRunnerBridge.mm; sourceTree = "<group>"; };
 		82293E5829BDC71700C67BD9 /* llamaTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = llamaTest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +52,11 @@
 		82293E6429BDC7E200C67BD9 /* LlamaRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LlamaRunner.swift; sourceTree = "<group>"; };
 		82819F7B29BDF61E00399B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82819F7C29BDF7CB00399B7E /* LlamaTest.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = LlamaTest.xcconfig; sourceTree = "<group>"; };
+		82819F7D29BF2BFC00399B7E /* ggml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ggml.c; path = cpp/ggml.c; sourceTree = SOURCE_ROOT; };
+		82819F7E29BF2BFC00399B7E /* quantize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = quantize.cpp; path = cpp/quantize.cpp; sourceTree = SOURCE_ROOT; };
+		82819F8029BF2BFC00399B7E /* ggml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ggml.h; path = cpp/ggml.h; sourceTree = SOURCE_ROOT; };
+		82819F8129BF2BFC00399B7E /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils.cpp; path = cpp/utils.cpp; sourceTree = SOURCE_ROOT; };
+		82819F8229BF2BFC00399B7E /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils.h; path = cpp/utils.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,11 +111,11 @@
 		82293E4329BDC51A00C67BD9 /* cpp */ = {
 			isa = PBXGroup;
 			children = (
-				82293E4429BDC51E00C67BD9 /* ggml.c */,
-				82293E4529BDC51E00C67BD9 /* ggml.h */,
-				82293E4A29BDC53D00C67BD9 /* quantize.cpp */,
-				82293E4829BDC53D00C67BD9 /* utils.cpp */,
-				82293E4929BDC53D00C67BD9 /* utils.h */,
+				82819F7D29BF2BFC00399B7E /* ggml.c */,
+				82819F8029BF2BFC00399B7E /* ggml.h */,
+				82819F7E29BF2BFC00399B7E /* quantize.cpp */,
+				82819F8129BF2BFC00399B7E /* utils.cpp */,
+				82819F8229BF2BFC00399B7E /* utils.h */,
 			);
 			path = cpp;
 			sourceTree = "<group>";
@@ -153,10 +153,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82819F8629BF2BFC00399B7E /* ggml.h in Headers */,
 				82293E5229BDC5DE00C67BD9 /* LlamaRunnerBridge.h in Headers */,
-				82293E4C29BDC53D00C67BD9 /* utils.h in Headers */,
+				82819F8829BF2BFC00399B7E /* utils.h in Headers */,
 				82293E3D29BDC4ED00C67BD9 /* llama.h in Headers */,
-				82293E4729BDC51E00C67BD9 /* ggml.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,11 +253,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82293E4D29BDC53D00C67BD9 /* quantize.cpp in Sources */,
 				82293E5329BDC5DE00C67BD9 /* LlamaRunnerBridge.mm in Sources */,
-				82293E4629BDC51E00C67BD9 /* ggml.c in Sources */,
-				82293E4B29BDC53D00C67BD9 /* utils.cpp in Sources */,
 				82293E6529BDC7E200C67BD9 /* LlamaRunner.swift in Sources */,
+				82819F8429BF2BFC00399B7E /* quantize.cpp in Sources */,
+				82819F8729BF2BFC00399B7E /* utils.cpp in Sources */,
+				82819F8329BF2BFC00399B7E /* ggml.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
