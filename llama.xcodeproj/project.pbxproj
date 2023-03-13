@@ -18,6 +18,8 @@
 		82819F8629BF2BFC00399B7E /* ggml.h in Headers */ = {isa = PBXBuildFile; fileRef = 82819F8029BF2BFC00399B7E /* ggml.h */; };
 		82819F8729BF2BFC00399B7E /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82819F8129BF2BFC00399B7E /* utils.cpp */; };
 		82819F8829BF2BFC00399B7E /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 82819F8229BF2BFC00399B7E /* utils.h */; };
+		82819F8D29BF2F5800399B7E /* LlamaRunnerBridgeConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 82819F8B29BF2F5800399B7E /* LlamaRunnerBridgeConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		82819F8E29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 82819F8C29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		82819F8029BF2BFC00399B7E /* ggml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ggml.h; path = cpp/ggml.h; sourceTree = SOURCE_ROOT; };
 		82819F8129BF2BFC00399B7E /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils.cpp; path = cpp/utils.cpp; sourceTree = SOURCE_ROOT; };
 		82819F8229BF2BFC00399B7E /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = utils.h; path = cpp/utils.h; sourceTree = SOURCE_ROOT; };
+		82819F8B29BF2F5800399B7E /* LlamaRunnerBridgeConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LlamaRunnerBridgeConfig.h; sourceTree = "<group>"; };
+		82819F8C29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LlamaRunnerBridgeConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +146,8 @@
 			children = (
 				82293E5029BDC5DE00C67BD9 /* LlamaRunnerBridge.h */,
 				82293E5129BDC5DE00C67BD9 /* LlamaRunnerBridge.mm */,
+				82819F8B29BF2F5800399B7E /* LlamaRunnerBridgeConfig.h */,
+				82819F8C29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m */,
 			);
 			path = bridge;
 			sourceTree = "<group>";
@@ -156,6 +162,7 @@
 				82819F8629BF2BFC00399B7E /* ggml.h in Headers */,
 				82293E5229BDC5DE00C67BD9 /* LlamaRunnerBridge.h in Headers */,
 				82819F8829BF2BFC00399B7E /* utils.h in Headers */,
+				82819F8D29BF2F5800399B7E /* LlamaRunnerBridgeConfig.h in Headers */,
 				82293E3D29BDC4ED00C67BD9 /* llama.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,6 +262,7 @@
 			files = (
 				82293E5329BDC5DE00C67BD9 /* LlamaRunnerBridge.mm in Sources */,
 				82293E6529BDC7E200C67BD9 /* LlamaRunner.swift in Sources */,
+				82819F8E29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m in Sources */,
 				82819F8429BF2BFC00399B7E /* quantize.cpp in Sources */,
 				82819F8729BF2BFC00399B7E /* utils.cpp in Sources */,
 				82819F8329BF2BFC00399B7E /* ggml.c in Sources */,

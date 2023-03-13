@@ -19,4 +19,4 @@ guard let url = URL(string: pathString), FileManager.default.fileExists(atPath: 
 }
 
 let llama = LlamaRunner(modelURL: url)
-llama.run(with: "test")
+llama.run(with: "Building a website can be done in 10 simple steps:", config: .default)
