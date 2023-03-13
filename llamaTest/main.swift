@@ -18,5 +18,13 @@ guard let url = URL(string: pathString), FileManager.default.fileExists(atPath: 
   exit(1)
 }
 
+// Run Llama
+
+let semaphore = DispatchSemaphore(value: 0)
+
 let llama = LlamaRunner(modelURL: url)
-llama.run(with: "Building a website can be done in 10 simple steps:", config: .default)
+llama.run(with: "Building a website can be done in 10 simple steps:", config: .default, completion: {
+  semaphore.signal()
+})
+
+semaphore.wait()

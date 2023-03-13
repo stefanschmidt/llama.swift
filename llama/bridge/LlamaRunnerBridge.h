@@ -13,10 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface _LlamaRunnerBridge : NSObject
 
+@property (nonnull, readonly, copy) NSString *modelPath;
+
 - (instancetype)initWithModelPath:(nonnull NSString *)modelPath;
 
-- (void)runWithPrompt:(nonnull NSString*)prompt config:(nonnull _LlamaRunnerBridgeConfig *)config;
-
+- (void)runWithPrompt:(nonnull NSString*)prompt
+               config:(nonnull _LlamaRunnerBridgeConfig *)config
+           completion:(void (^)())completion;
 @end
 
 NS_ASSUME_NONNULL_END

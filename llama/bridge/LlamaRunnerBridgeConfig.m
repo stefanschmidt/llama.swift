@@ -9,8 +9,8 @@
 
 @implementation _LlamaRunnerBridgeConfig
 
-@synthesize numberOfThreads;
-@synthesize numberOfTokens;
-@synthesize reversePrompt;
+@synthesize numberOfThreads = _numberOfThreads;
+@synthesize numberOfTokens = _numberOfTokens;
+@synthesize reversePrompt = _reversePrompt;
 
 @end
