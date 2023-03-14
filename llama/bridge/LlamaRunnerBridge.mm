@@ -6,6 +6,7 @@
 //
 
 #import "LlamaRunnerBridge.h"
+#import "LlamaEvent.h"
 #import "LlamaRunnerBridgeConfig.h"
 #import "LlamaPredictOperation.hh"
 
@@ -27,6 +28,7 @@
 
 - (void)runWithPrompt:(nonnull NSString*)prompt
                config:(nonnull _LlamaRunnerBridgeConfig *)config
+         eventHandler:(nonnull _LlamaRunnerBridgeEventHandler)eventHandler
            completion:(void (^)())completion
 {
   gpt_params params;
@@ -40,7 +42,9 @@
     params.antiprompt = [config.reversePrompt cStringUsingEncoding:NSUTF8StringEncoding];
   }
 
-  LlamaPredictOperation *operation = [[LlamaPredictOperation alloc] initWithParams:params];
+  LlamaPredictOperation *operation = [[LlamaPredictOperation alloc] initWithParams:params
+                                                                      eventHandler:eventHandler
+                                                                 eventHandlerQueue:dispatch_get_main_queue()];
   [operation setCompletionBlock:completion];
   [_operationQueue addOperation:operation];
 }

@@ -23,8 +23,12 @@ guard let url = URL(string: pathString), FileManager.default.fileExists(atPath: 
 let semaphore = DispatchSemaphore(value: 0)
 
 let llama = LlamaRunner(modelURL: url)
-llama.run(with: "Building a website can be done in 10 simple steps:", config: .default, completion: {
-  semaphore.signal()
-})
+llama.run(
+  with: "Building a website can be done in 10 simple steps:",
+  completion: {
+    semaphore.signal()
+  })
 
-semaphore.wait()
+while semaphore.wait(timeout: .now()) == .timedOut {
+  RunLoop.current.run(mode: .default, before: Date(timeIntervalSinceNow: 0))
+}

@@ -30,12 +30,22 @@ public class LlamaRunner {
     self.modelURL = modelURL
   }
 
-  public func run(with prompt: String, config: Config, completion: @escaping () -> Void) {
+  public func run(
+    with prompt: String,
+    config: Config = .default,
+    completion: @escaping () -> Void
+  ) {
     let _config = _LlamaRunnerBridgeConfig()
     _config.numberOfThreads = config.numThreads
     _config.numberOfTokens = config.numTokens
     _config.reversePrompt = config.reversePrompt
 
-    bridge.run(withPrompt: prompt, config: _config, completion: completion)
+    bridge.run(
+      withPrompt: prompt,
+      config: _config,
+      eventHandler: { event in
+      },
+      completion: completion
+    )
   }
 }

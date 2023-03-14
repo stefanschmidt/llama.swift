@@ -22,6 +22,8 @@
 		82819F8E29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 82819F8C29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m */; };
 		82819F9129BF387400399B7E /* LlamaPredictOperation.hh in Headers */ = {isa = PBXBuildFile; fileRef = 82819F8F29BF387400399B7E /* LlamaPredictOperation.hh */; settings = {ATTRIBUTES = (Private, ); }; };
 		82819F9229BF387400399B7E /* LlamaPredictOperation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 82819F9029BF387400399B7E /* LlamaPredictOperation.mm */; };
+		82819F9529C0526100399B7E /* LlamaEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 82819F9329C0526100399B7E /* LlamaEvent.mm */; };
+		82819F9629C0526100399B7E /* LlamaEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 82819F9429C0526100399B7E /* LlamaEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		82819F8C29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LlamaRunnerBridgeConfig.m; sourceTree = "<group>"; };
 		82819F8F29BF387400399B7E /* LlamaPredictOperation.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LlamaPredictOperation.hh; sourceTree = "<group>"; };
 		82819F9029BF387400399B7E /* LlamaPredictOperation.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LlamaPredictOperation.mm; sourceTree = "<group>"; };
+		82819F9329C0526100399B7E /* LlamaEvent.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LlamaEvent.mm; sourceTree = "<group>"; };
+		82819F9429C0526100399B7E /* LlamaEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LlamaEvent.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,8 @@
 		82293E6329BDC75F00C67BD9 /* bridge */ = {
 			isa = PBXGroup;
 			children = (
+				82819F9429C0526100399B7E /* LlamaEvent.h */,
+				82819F9329C0526100399B7E /* LlamaEvent.mm */,
 				82293E5029BDC5DE00C67BD9 /* LlamaRunnerBridge.h */,
 				82293E5129BDC5DE00C67BD9 /* LlamaRunnerBridge.mm */,
 				82819F8B29BF2F5800399B7E /* LlamaRunnerBridgeConfig.h */,
@@ -165,6 +171,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82819F9629C0526100399B7E /* LlamaEvent.h in Headers */,
 				82819F8629BF2BFC00399B7E /* ggml.h in Headers */,
 				82293E5229BDC5DE00C67BD9 /* LlamaRunnerBridge.h in Headers */,
 				82819F8829BF2BFC00399B7E /* utils.h in Headers */,
@@ -267,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82819F9529C0526100399B7E /* LlamaEvent.mm in Sources */,
 				82293E5329BDC5DE00C67BD9 /* LlamaRunnerBridge.mm in Sources */,
 				82293E6529BDC7E200C67BD9 /* LlamaRunner.swift in Sources */,
 				82819F8E29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m in Sources */,

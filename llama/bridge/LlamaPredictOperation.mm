@@ -6,6 +6,8 @@
 //
 
 #import "LlamaPredictOperation.hh"
+
+#import "LlamaEvent.h"
 #import "LlamaRunnerBridgeConfig.h"
 
 #include "ggml.h"
@@ -756,14 +758,24 @@ void sigint_handler(int signo) {
 }
 #endif
 
+@interface LlamaPredictOperation () {
+  gpt_params _params;
+  LlamaPredictOperationEventHandler _eventHandler;
+  dispatch_queue_t _eventHandlerQueue;
+}
+
+@end
+
 @implementation LlamaPredictOperation
 
-@synthesize params = _params;
-
 - (instancetype)initWithParams:(gpt_params)params
+                  eventHandler:(LlamaPredictOperationEventHandler)eventHandler
+             eventHandlerQueue:(dispatch_queue_t)eventHandlerQueue
 {
   if ((self = [super init])) {
     _params = params;
+    _eventHandler = [eventHandler copy];
+    _eventHandlerQueue = eventHandlerQueue;
   }
 
   return self;
@@ -788,15 +800,22 @@ void sigint_handler(int signo) {
 
   // load the model
   {
+    [self postEvent:[_LlamaEvent startedLoadingModel]];
+
     const int64_t t_start_us = ggml_time_us();
 
     if (!llama_model_load(_params.model, model, vocab, 512)) {  // TODO: set context from user input ??
       fprintf(stderr, "%s: failed to load model from '%s'\n", __func__, _params.model.c_str());
+//      self.state = LlamaPredictOperationStateFailed;
       return;
     }
 
     t_load_us = ggml_time_us() - t_start_us;
+
+    [self postEvent:[_LlamaEvent finishedLoadingModel]];
   }
+
+  [self postEvent:[_LlamaEvent startedGeneratingOutput]];
 
   int n_past = 0;
 
@@ -835,7 +854,6 @@ void sigint_handler(int signo) {
 
   int remaining_tokens = _params.n_predict;
   int input_consumed = 0;
-  bool input_noecho = false;
 
   while (remaining_tokens > 0) {
     // predict
@@ -844,6 +862,7 @@ void sigint_handler(int signo) {
 
       if (!llama_eval(model, _params.n_threads, n_past, embd, logits, mem_per_token)) {
         printf("Failed to predict\n");
+//        self.state = LlamaPredictOperationStateFailed;
         return;
       }
 
@@ -878,9 +897,6 @@ void sigint_handler(int signo) {
       // add it to the context
       embd.push_back(id);
 
-      // echo this to console
-      input_noecho = false;
-
       // decrement remaining sampling budget
       --remaining_tokens;
     } else {
@@ -897,11 +913,9 @@ void sigint_handler(int signo) {
     }
 
     // display text
-    if (!input_noecho) {
-      for (auto id : embd) {
-        printf("%s", vocab.id_to_token[id].c_str());
-      }
-      fflush(stdout);
+    for (auto id : embd) {
+      NSString *token = [[NSString alloc] initWithCString:vocab.id_to_token[id].c_str() encoding:NSUTF8StringEncoding];
+      [self postEvent:[_LlamaEvent outputTokenWithToken:token]];
     }
 
     // end of text token
@@ -911,6 +925,7 @@ void sigint_handler(int signo) {
     }
   }
 
+  [self postEvent:[_LlamaEvent completed]];
 
   // report timing
   {
@@ -925,6 +940,15 @@ void sigint_handler(int signo) {
   }
 
   ggml_free(model.ctx);
+}
+
+- (void)postEvent:(_LlamaEvent *)event
+{
+  dispatch_async(_eventHandlerQueue, ^() {
+    if (self->_eventHandler != NULL) {
+      self->_eventHandler(event);
+    }
+  });
 }
 
 @end

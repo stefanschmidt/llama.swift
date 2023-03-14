@@ -7,9 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class _LlamaEvent;
 @class _LlamaRunnerBridgeConfig;
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^_LlamaRunnerBridgeEventHandler)(_LlamaEvent *event);
 
 @interface _LlamaRunnerBridge : NSObject
 
@@ -19,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)runWithPrompt:(nonnull NSString*)prompt
                config:(nonnull _LlamaRunnerBridgeConfig *)config
+         eventHandler:(nonnull _LlamaRunnerBridgeEventHandler)eventHandler
            completion:(void (^)())completion;
 @end
 

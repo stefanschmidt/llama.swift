@@ -8,13 +8,17 @@
 #import <Foundation/NSOperation.h>
 #import "utils.h"
 
+@class _LlamaEvent;
+
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^LlamaPredictOperationEventHandler)(_LlamaEvent *event);
 
 @interface LlamaPredictOperation : NSOperation
 
-@property (nonatomic, readonly) gpt_params params;
-
-- (instancetype)initWithParams:(gpt_params)params;
+- (instancetype)initWithParams:(gpt_params)params
+                  eventHandler:(LlamaPredictOperationEventHandler)eventHandler
+             eventHandlerQueue:(dispatch_queue_t)eventHandlerQueue;
 
 @end
 
