@@ -47,7 +47,7 @@ func run() {
           print("Done.")
           print("")
           print("Generating output...")
-          print("\"", separator: "")
+          print("\"", terminator: "")
         case .completed:
           print("\"")
           print("")
