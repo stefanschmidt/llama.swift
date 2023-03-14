@@ -74,6 +74,7 @@
 		82819F9729C07BC900399B7E /* LlamaError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LlamaError.h; sourceTree = "<group>"; };
 		82819F9829C07BC900399B7E /* LlamaError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LlamaError.m; sourceTree = "<group>"; };
 		82819F9B29C0881800399B7E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		82819F9C29C0897900399B7E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				82819F9B29C0881800399B7E /* README.md */,
+				82819F9C29C0897900399B7E /* LICENSE */,
 				82293E3B29BDC4ED00C67BD9 /* llama */,
 				82293E5929BDC71700C67BD9 /* llamaTest */,
 				82293E3A29BDC4ED00C67BD9 /* Products */,
