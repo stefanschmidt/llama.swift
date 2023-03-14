@@ -7,6 +7,7 @@
 
 #import "LlamaPredictOperation.hh"
 
+#import "LlamaError.h"
 #import "LlamaEvent.h"
 #import "LlamaRunnerBridgeConfig.h"
 
@@ -758,6 +759,13 @@ void sigint_handler(int signo) {
 }
 #endif
 
+NSError *makeLlamaError(LlamaErrorCode errorCode, NSString *description)
+{
+  return [[NSError alloc] initWithDomain:LlamaErrorDomain code:errorCode userInfo:@{
+    NSLocalizedDescriptionKey: description
+  }];
+}
+
 @interface LlamaPredictOperation () {
   gpt_params _params;
   LlamaPredictOperationEventHandler _eventHandler;
@@ -805,8 +813,9 @@ void sigint_handler(int signo) {
     const int64_t t_start_us = ggml_time_us();
 
     if (!llama_model_load(_params.model, model, vocab, 512)) {  // TODO: set context from user input ??
-      fprintf(stderr, "%s: failed to load model from '%s'\n", __func__, _params.model.c_str());
-//      self.state = LlamaPredictOperationStateFailed;
+      NSError *error = makeLlamaError(LlamaErrorCodeFailedToLoadModel,
+                                      [NSString stringWithFormat:@"Failed to load model from '%s'", _params.model.c_str()]);
+      [self postEvent:[_LlamaEvent failedWithError:error]];
       return;
     }
 
@@ -861,8 +870,8 @@ void sigint_handler(int signo) {
       const int64_t t_start_us = ggml_time_us();
 
       if (!llama_eval(model, _params.n_threads, n_past, embd, logits, mem_per_token)) {
-        printf("Failed to predict\n");
-//        self.state = LlamaPredictOperationStateFailed;
+        NSError *error = makeLlamaError(LlamaErrorCodePredictionFailed, @"Failed to predict");
+        [self postEvent:[_LlamaEvent failedWithError:error]];
         return;
       }
 
