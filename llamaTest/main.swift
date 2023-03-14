@@ -20,32 +20,48 @@ guard let url = URL(string: pathString), FileManager.default.fileExists(atPath: 
 
 // Run Llama
 
-let semaphore = DispatchSemaphore(value: 0)
+func run() {
+  while true {
+    var prompt: String?
 
-let llama = LlamaRunner(modelURL: url)
-llama.run(
-  with: "Building a website can be done in 10 simple steps:",
-  tokenHandler: { token in
-    print(token, terminator: "")
-  },
-  stateChangeHandler: { state in
-    switch state {
-    case .notStarted:
-      break
-    case .initializing:
-      print("Initializing model... ", terminator: "")
-      break
-    case .generatingOutput:
-      print("Done.")
-      break
-    case .completed:
-      semaphore.signal()
-    case .failed(error: let error):
-      print("")
-      print("Failed to generate output: ", error.localizedDescription)
+    while((prompt?.count ?? 0) == 0) {
+      print("Enter prompt: ")
+      prompt = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-  })
 
-while semaphore.wait(timeout: .now()) == .timedOut {
-  RunLoop.current.run(mode: .default, before: Date(timeIntervalSinceNow: 0))
+    let semaphore = DispatchSemaphore(value: 0)
+
+    let llama = LlamaRunner(modelURL: url)
+    llama.run(
+      with: prompt!,
+      tokenHandler: { token in
+        print(token, terminator: "")
+      },
+      stateChangeHandler: { state in
+        switch state {
+        case .notStarted:
+          break
+        case .initializing:
+          print("Initializing model... ", terminator: "")
+        case .generatingOutput:
+          print("Done.")
+          print("")
+          print("Generating output...")
+          print("\"", separator: "")
+        case .completed:
+          print("\"")
+          print("")
+          semaphore.signal()
+        case .failed(error: let error):
+          print("")
+          print("Failed to generate output: ", error.localizedDescription)
+        }
+      })
+
+    while semaphore.wait(timeout: .now()) == .timedOut {
+      RunLoop.current.run(mode: .default, before: Date(timeIntervalSinceNow: 0))
+    }
+  }
 }
+
+run()
