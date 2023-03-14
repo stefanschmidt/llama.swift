@@ -29,7 +29,7 @@
 - (void)runWithPrompt:(nonnull NSString*)prompt
                config:(nonnull _LlamaRunnerBridgeConfig *)config
          eventHandler:(nonnull _LlamaRunnerBridgeEventHandler)eventHandler
-           completion:(void (^)())completion
+    eventHandlerQueue:(nonnull dispatch_queue_t)eventHandlerQueue
 {
   gpt_params params;
   params.model = [_modelPath cStringUsingEncoding:NSUTF8StringEncoding];
@@ -44,8 +44,7 @@
 
   LlamaPredictOperation *operation = [[LlamaPredictOperation alloc] initWithParams:params
                                                                       eventHandler:eventHandler
-                                                                 eventHandlerQueue:dispatch_get_main_queue()];
-  [operation setCompletionBlock:completion];
+                                                                 eventHandlerQueue:eventHandlerQueue];
   [_operationQueue addOperation:operation];
 }
 

@@ -23,7 +23,7 @@ typedef void (^_LlamaRunnerBridgeEventHandler)(_LlamaEvent *event);
 - (void)runWithPrompt:(nonnull NSString*)prompt
                config:(nonnull _LlamaRunnerBridgeConfig *)config
          eventHandler:(nonnull _LlamaRunnerBridgeEventHandler)eventHandler
-           completion:(void (^)())completion;
+    eventHandlerQueue:(nonnull dispatch_queue_t)eventHandlerQueue;
 @end
 
 NS_ASSUME_NONNULL_END

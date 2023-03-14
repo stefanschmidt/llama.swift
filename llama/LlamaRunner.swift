@@ -22,6 +22,14 @@ public class LlamaRunner {
     }
   }
 
+  public enum RunState {
+    case notStarted
+    case initializing
+    case generatingOutput
+    case completed
+    case failed(error: Error)
+  }
+
   public let modelURL: URL
 
   private lazy var bridge = _LlamaRunnerBridge(modelPath: modelURL.path)
@@ -33,19 +41,40 @@ public class LlamaRunner {
   public func run(
     with prompt: String,
     config: Config = .default,
-    completion: @escaping () -> Void
+    tokenHandler: @escaping (String) -> Void,
+    stateChangeHandler: ((RunState) -> Void)? = nil
   ) {
     let _config = _LlamaRunnerBridgeConfig()
     _config.numberOfThreads = config.numThreads
     _config.numberOfTokens = config.numTokens
     _config.reversePrompt = config.reversePrompt
 
+    stateChangeHandler?(.notStarted)
+
     bridge.run(
       withPrompt: prompt,
       config: _config,
       eventHandler: { event in
+        event.match(
+          startedLoadingModel: {
+            stateChangeHandler?(.initializing)
+          },
+          finishedLoadingModel: {},
+          startedGeneratingOutput: {
+            stateChangeHandler?(.generatingOutput)
+          },
+          outputToken: { token in
+            tokenHandler(token)
+          },
+          completed: {
+            stateChangeHandler?(.completed)
+          },
+          failed: { error in
+            stateChangeHandler?(.failed(error: error))
+          }
+        )
       },
-      completion: completion
+      eventHandlerQueue: DispatchQueue.main
     )
   }
 }

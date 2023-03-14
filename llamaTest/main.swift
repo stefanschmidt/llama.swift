@@ -25,8 +25,25 @@ let semaphore = DispatchSemaphore(value: 0)
 let llama = LlamaRunner(modelURL: url)
 llama.run(
   with: "Building a website can be done in 10 simple steps:",
-  completion: {
-    semaphore.signal()
+  tokenHandler: { token in
+    print(token, terminator: "")
+  },
+  stateChangeHandler: { state in
+    switch state {
+    case .notStarted:
+      break
+    case .initializing:
+      print("Initializing model... ", terminator: "")
+      break
+    case .generatingOutput:
+      print("Done.")
+      break
+    case .completed:
+      semaphore.signal()
+    case .failed(error: let error):
+      print("")
+      print("Failed to generate output: ", error.localizedDescription)
+    }
   })
 
 while semaphore.wait(timeout: .now()) == .timedOut {
