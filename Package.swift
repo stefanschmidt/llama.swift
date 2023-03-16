@@ -16,6 +16,9 @@ let package = Package(
       name: "llamaObjCxx",
       dependencies: [],
       path: "Sources/llamaObjCxx",
+      exclude: [
+        "cpp/quantize.cpp"
+      ],
       publicHeadersPath: "headers",
       cxxSettings: [
         .headerSearchPath("cpp")
