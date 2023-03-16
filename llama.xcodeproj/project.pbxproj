@@ -83,7 +83,7 @@
 		82819FA029C1D72400399B7E /* ggml.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ggml.h; sourceTree = "<group>"; };
 		82819FA129C1D72400399B7E /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		82819FA929C1DB2900399B7E /* libllamaObjCxx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libllamaObjCxx.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		82819FC429C1DEE700399B7E /* llama-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "llama-Bridging-Header.h"; sourceTree = "<group>"; };
+		82819FC729C2939100399B7E /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				82293E6429BDC7E200C67BD9 /* LlamaRunner.swift */,
-				82819FC429C1DEE700399B7E /* llama-Bridging-Header.h */,
 			);
 			path = llama;
 			sourceTree = "<group>";
@@ -187,6 +186,7 @@
 		82819F9E29C1CE2000399B7E /* llamaObjCxx */ = {
 			isa = PBXGroup;
 			children = (
+				82819FC729C2939100399B7E /* module.modulemap */,
 				82819F9829C07BC900399B7E /* LlamaError.m */,
 				82293E6329BDC75F00C67BD9 /* bridge */,
 				82293E4329BDC51A00C67BD9 /* cpp */,
@@ -564,7 +564,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Sources/llama/llama-Bridging-Header.h";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Sources/llamaObjCxx";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -600,7 +600,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "Sources/llama/llama-Bridging-Header.h";
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Sources/llamaObjCxx";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -658,6 +658,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44847G58BM;
 				EXECUTABLE_PREFIX = lib;
+				MODULEMAP_FILE = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -669,6 +670,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 44847G58BM;
 				EXECUTABLE_PREFIX = lib;
+				MODULEMAP_FILE = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

@@ -1,0 +1,4 @@
+module llamaObjCxx {
+    umbrella "include/public"
+    export *
+}
