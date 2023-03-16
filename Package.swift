@@ -16,9 +16,9 @@ let package = Package(
       name: "llamaObjCxx",
       dependencies: [],
       path: "Sources/llamaObjCxx",
-      publicHeadersPath: "include/public",
+      publicHeadersPath: "headers",
       cxxSettings: [
-        .headerSearchPath("include/private")
+        .headerSearchPath("cpp")
       ])
   ],
   cLanguageStandard: .gnu11,

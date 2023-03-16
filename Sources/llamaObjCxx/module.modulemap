@@ -1,4 +1,4 @@
 module llamaObjCxx {
-    umbrella "include/public"
+    umbrella "headers"
     export *
 }
