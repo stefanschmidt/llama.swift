@@ -16,7 +16,6 @@
 		82819FB529C1DB5800399B7E /* LlamaRunnerBridgeConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 82819F8C29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m */; };
 		82819FB629C1DB5800399B7E /* LlamaPredictOperation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 82819F9029BF387400399B7E /* LlamaPredictOperation.mm */; };
 		82819FB729C1DB5800399B7E /* LlamaPredictOperation.hh in Headers */ = {isa = PBXBuildFile; fileRef = 82819F8F29BF387400399B7E /* LlamaPredictOperation.hh */; settings = {ATTRIBUTES = (Private, ); }; };
-		82819FB829C1DB5E00399B7E /* quantize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82819F7E29BF2BFC00399B7E /* quantize.cpp */; };
 		82819FB929C1DB5E00399B7E /* ggml.c in Sources */ = {isa = PBXBuildFile; fileRef = 82819F7D29BF2BFC00399B7E /* ggml.c */; };
 		82819FBA29C1DB5E00399B7E /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82819F8129BF2BFC00399B7E /* utils.cpp */; };
 		82819FBB29C1DB6900399B7E /* LlamaError.h in Headers */ = {isa = PBXBuildFile; fileRef = 82819F9729C07BC900399B7E /* LlamaError.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -67,7 +66,6 @@
 		82819F7B29BDF61E00399B7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82819F7C29BDF7CB00399B7E /* LlamaTest.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = LlamaTest.xcconfig; sourceTree = "<group>"; };
 		82819F7D29BF2BFC00399B7E /* ggml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ggml.c; path = Sources/llamaObjCxx/cpp/ggml.c; sourceTree = SOURCE_ROOT; };
-		82819F7E29BF2BFC00399B7E /* quantize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = quantize.cpp; path = Sources/llamaObjCxx/cpp/quantize.cpp; sourceTree = SOURCE_ROOT; };
 		82819F8129BF2BFC00399B7E /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils.cpp; path = Sources/llamaObjCxx/cpp/utils.cpp; sourceTree = SOURCE_ROOT; };
 		82819F8B29BF2F5800399B7E /* LlamaRunnerBridgeConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LlamaRunnerBridgeConfig.h; sourceTree = "<group>"; };
 		82819F8C29BF2F5800399B7E /* LlamaRunnerBridgeConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LlamaRunnerBridgeConfig.m; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				82819F7D29BF2BFC00399B7E /* ggml.c */,
-				82819F7E29BF2BFC00399B7E /* quantize.cpp */,
 				82819F8129BF2BFC00399B7E /* utils.cpp */,
 			);
 			path = cpp;
@@ -388,7 +385,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82819FB829C1DB5E00399B7E /* quantize.cpp in Sources */,
 				82819FB629C1DB5800399B7E /* LlamaPredictOperation.mm in Sources */,
 				82819FB529C1DB5800399B7E /* LlamaRunnerBridgeConfig.m in Sources */,
 				82819FBA29C1DB5E00399B7E /* utils.cpp in Sources */,
