@@ -20,23 +20,15 @@ guard let url = URL(string: pathString), FileManager.default.fileExists(atPath: 
 
 // Run Llama
 
-func run() {
+@Sendable func run() async {
   while true {
-    var prompt: String?
-
-    while((prompt?.count ?? 0) == 0) {
-      print("Enter prompt: ")
-      prompt = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines)
+    print("Enter prompt: ")
+    guard let prompt = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines), !prompt.isEmpty else {
+      break
     }
 
-    let semaphore = DispatchSemaphore(value: 0)
-
-    let llama = LlamaRunner(modelURL: url)
-    llama.run(
-      with: prompt!,
-      tokenHandler: { token in
-        print(token, terminator: "")
-      },
+    let tokenStream = LlamaRunner(modelURL: url).run(
+      with: prompt,
       stateChangeHandler: { state in
         switch state {
         case .notStarted:
@@ -51,17 +43,32 @@ func run() {
         case .completed:
           print("\"")
           print("")
-          semaphore.signal()
-        case .failed(error: let error):
-          print("")
-          print("Failed to generate output: ", error.localizedDescription)
+        case .failed:
+          // Handle this in the catch {}
+          break
         }
       })
 
-    while semaphore.wait(timeout: .now()) == .timedOut {
-      RunLoop.current.run(mode: .default, before: Date(timeIntervalSinceNow: 0))
+    do {
+      for try await token in tokenStream {
+        print(token, terminator: "")
+      }
+    } catch let error {
+      print("")
+      print("Failed to generate output:", error.localizedDescription)
     }
   }
 }
 
-run()
+// Run program.
+let semaphore = DispatchSemaphore(value: 0)
+
+Task.init {
+  await run()
+}
+
+// Don't block the main thread to ensure that state changes are still called
+// on the main thread.
+while semaphore.wait(timeout: .now()) == .timedOut {
+  RunLoop.current.run(mode: .default, before: Date(timeIntervalSinceNow: 0))
+}
