@@ -21,6 +21,14 @@ public class LlamaRunner {
       self.numTokens = numTokens
       self.reversePrompt = reversePrompt
     }
+
+    fileprivate func toBridgeConfig() -> _LlamaRunnerBridgeConfig {
+      let _config = _LlamaRunnerBridgeConfig()
+      _config.numberOfThreads = numThreads
+      _config.numberOfTokens = numTokens
+      _config.reversePrompt = reversePrompt
+      return _config
+    }
   }
 
   public enum RunState {
@@ -39,22 +47,57 @@ public class LlamaRunner {
     self.modelURL = modelURL
   }
 
+  // Async-based run() function.
+  public func run(
+    with prompt: String,
+    config: Config = .default,
+    stateChangeHandler: ((RunState) -> Void)? = nil
+  ) -> AsyncThrowingStream<String, Error> {
+    return AsyncThrowingStream<String, Error> { continuation in
+      stateChangeHandler?(.notStarted)
+
+      bridge.run(
+        withPrompt: prompt,
+        config: config.toBridgeConfig(),
+        eventHandler: { event in
+          event.match(
+            startedLoadingModel: {
+              stateChangeHandler?(.initializing)
+            },
+            finishedLoadingModel: {},
+            startedGeneratingOutput: {
+              stateChangeHandler?(.generatingOutput)
+            },
+            outputToken: { token in
+              continuation.yield(token)
+            },
+            completed: {
+              stateChangeHandler?(.completed)
+              continuation.finish()
+            },
+            failed: { error in
+              stateChangeHandler?(.failed(error: error))
+              continuation.finish(throwing: error)
+            }
+          )
+        },
+        eventHandlerQueue: DispatchQueue.main
+      )
+    }
+  }
+
+  // Closure-based run() function.
   public func run(
     with prompt: String,
     config: Config = .default,
     tokenHandler: @escaping (String) -> Void,
     stateChangeHandler: ((RunState) -> Void)? = nil
   ) {
-    let _config = _LlamaRunnerBridgeConfig()
-    _config.numberOfThreads = config.numThreads
-    _config.numberOfTokens = config.numTokens
-    _config.reversePrompt = config.reversePrompt
-
     stateChangeHandler?(.notStarted)
 
     bridge.run(
       withPrompt: prompt,
-      config: _config,
+      config: config.toBridgeConfig(),
       eventHandler: { event in
         event.match(
           startedLoadingModel: {
