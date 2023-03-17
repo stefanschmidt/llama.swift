@@ -57,43 +57,97 @@ dependencies: [
 
 ### Swift library
 
-For now `llama` has a simple API:
+To generate output from a prompt, first instantiate a `LlamaRunner` instance with the URL to your LLaMA model file:
 
 ```swift
 import llama
 
 let url = ... // URL to the ggml-model-q4_0.bin model file
 let runner = LlamaRunner(modelURL: url)
+```
 
-runner.run(
-  with: "Building a website can be done in 10 simple steps:",
-  config: LlamaRunner.Config(numThreads: 8, numTokens: 512) // Can also specify `reversePrompt`
-  tokenHandler: { token in
-    // If printing tokens directly use `terminator: ""` as the tokens include whitespace and newlines.
+Generating output is as simple as calling `run()` with your prompt on the `LlamaRunner` instance. Since tokens are generated asynchronously this returns an `AsyncThrowingStream` which you can enumerate over to process tokens as they are returned:
+
+```swift
+do {
+  for try await token in runner.run(with: "Building a website can be done in 10 simple steps:") {
     print(token, terminator: "")
-  },
+  }
+} catch let error {
+  // Handle error
+}
+```
+
+Note that tokens don't necessarily correspond to a single word, and also include any whitespace and newlines.
+
+#### Configuration
+
+`LlamaRunner.run()` takes an optional `LlamaRunner.Config` instance which lets you control the number of threads inference is run on (default: `8`), the maximum number of tokens returned (default: `512`) and an optional reverse/negative prompt:
+
+```swift
+let prompt = "..."
+let config = LlamaRunner.Config(numThreads: 8, numTokens: 20, reversePrompt: "...")
+let tokenStream = runner.run(with: prompt, config: config)
+
+do {
+  for try await token in tokenStream {
+    ...
+  }
+} catch let error {
+  ...
+}
+```
+
+#### State Changes
+
+`LlamaRunner.run()` also takes an optional `stateChangeHandler` closure, which is invoked whenever the run state changes:
+
+```
+let prompt = "..."
+let tokenStream = runner.run(
+  with: prompt,
+  config: .init(numThreads: 8, numTokens: 20),
   stateChangeHandler: { state in
     switch state {
-    case .notStarted:
-      // ...
-      break
-    case .initializing:
-      // ...
-      break
-    case .generatingOutput:
-      // ...
-      break 
-    case .completed:
-      // ...
-      break
-    case .failed(error: let error):
-      // ...
-      break
+      case .notStarted:
+        // Initial state
+        break
+      case .initializing:
+        // Loading the model and initializing
+        break
+      case .generatingOutput:
+        // Generating tokens
+        break
+      case .completed:
+        // Completed successfully
+        break
+      case .failed:
+        // Failed. This is also the error thrown by the `AsyncThrowingSequence` returned from `LlamaRunner.run()`
+        break
     }
   })
 ```
 
-**NOTE:** Because of the way the Swift package is structured (and some gaps in my knowledge around exported symbols from modules), including `llama.swift` also leaks the name of the internal module `llamaObjCxx` to Xcode, as well as some internal classes prefixed with `_Llama`, but you can ignore these for now.
+#### Closure-based API
+
+If you don't want to use Swift concurrency there is an alternative version of `run()` which returns tokens via a `tokenHandler` closure instead:
+
+```swift
+let prompt = "..."
+runner.run(
+  with: prompt,
+  config: ...,
+  tokenHandler: { token in
+    ...
+  },
+  stateChangeHandler: ...
+)
+```
+
+#### Other notes
+
+- Build for Release if you want token generation to be snappy, since `llama` will generate tokens slowly in Debug builds.
+- Because of the way the Swift package is structured (and some gaps in my knowledge around exported symbols from modules), including `llama.swift` also leaks the name of the internal module containing the Objective-C/C++ implementation, `llamaObjCxx`, as well as some internal classes prefixed with `_Llama`. Pull requests welcome if you have any ideas on fixing this!
 
 
 ### `llamaTest` app
@@ -105,8 +159,6 @@ The repo contains a barebones command-line tool, `llamaTest`, which uses the `ll
 ```
 MODEL_PATH=/path/to/ggml-model-q4_0.bin
 ```
-
-- Build for Release if you want this to be snappy, since `llama` will run slowly in Debug builds.
 
 ## Misc
 
