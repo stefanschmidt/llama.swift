@@ -1,12 +1,20 @@
-# llama.swift
+# 🦙 llama.swift
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A fork of [@ggerganov](https://github.com/ggerganov)'s [llama.cpp](https://github.com/ggerganov/llama.cpp) to use [Facebook's LLaMA](https://github.com/facebookresearch/llama) models in Swift.
 
-See the [main repository](https://github.com/ggerganov/llama.cpp/) for info about the original goals of the project and implementation.
+See the [llama.cpp repository](https://github.com/ggerganov/llama.cpp/) for info about the original goals of the project and implementation.
 
-## LLaMA Setup
+## 👀 Coming soon: Version 2
+
+Version 1 of llama.swift provides a simple, clean wrapper around the original LLaMA models and some of their early derivatives.
+
+Version 2 of llama.swift is currently in development on the [`v2`](https://github.com/alexrozanski/llama.swift/tree/v2) branch, providing support for newer models, model conversions and more.
+
+**Please note:** Version 2 is a breaking API change from Version 1, and all APIs and functionality on the `v2` branch is subject to change until `v2.0.0` is officially released.
+
+## 🔨 Setup
 
 Clone the repo:
 
@@ -41,7 +49,7 @@ make
 
 When running the larger models, make sure you have enough disk space to store all of the intermediate files.
 
-## Installation
+## ⬇️ Installation
 
 ### Swift Package Manager
 
@@ -53,7 +61,7 @@ dependencies: [
 ]
 ```
 
-## Usage
+## 👩‍💻 Usage
 
 ### Swift library
 
@@ -160,7 +168,7 @@ The repo contains a barebones command-line tool, `llamaTest`, which uses the `ll
 MODEL_PATH=/path/to/ggml-model-q4_0.bin
 ```
 
-## Misc
+## 📃 Misc
 
 - License: MIT
 - Other matters: See the [llama.cpp repo](https://github.com/ggerganov/llama.cpp/).
