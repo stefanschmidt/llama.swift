@@ -6,13 +6,13 @@ A fork of [@ggerganov](https://github.com/ggerganov)'s [llama.cpp](https://githu
 
 See the [llama.cpp repository](https://github.com/ggerganov/llama.cpp/) for info about the original goals of the project and implementation.
 
-## 👀 Coming soon: Version 2
+## 🚀 llama.swift → future
 
 Version 1 of llama.swift provides a simple, clean wrapper around the original LLaMA models and some of their early derivatives.
 
-Version 2 of llama.swift is currently in development on the [`v2`](https://github.com/alexrozanski/llama.swift/tree/v2) branch, providing support for newer models, model conversions and more.
+The future of llama.swift is [CameLLM](https://github.com/CameLLM/), which provides clean, Swift interfaces to run LLMs locally on macOS (and hopefully in the future, iOS, too). CameLLM is still in development, and you can star or watch the [main repository](https://github.com/CameLLM/CameLLM) for updates.
 
-**Please note:** Version 2 is a breaking API change from Version 1, and all APIs and functionality on the `v2` branch is subject to change until `v2.0.0` is officially released.
+<hr/>
 
 ## 🔨 Setup
 
