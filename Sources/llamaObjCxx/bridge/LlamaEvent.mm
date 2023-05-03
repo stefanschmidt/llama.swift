@@ -78,7 +78,7 @@ typedef struct LlamaEventData {
 
 + (instancetype)failedWithError:(nonnull NSError *)error
 {
-  _LlamaEvent *event = [[_LlamaEvent alloc] initWithEventType:LlamaEventTypeFailed data:{}];
+  _LlamaEvent *event = [[_LlamaEvent alloc] initWithEventType:LlamaEventTypeFailed data:{ .failed_error = error }];
   return event;
 }
 

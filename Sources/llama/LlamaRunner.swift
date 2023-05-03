@@ -36,7 +36,7 @@ public class LlamaRunner {
     case initializing
     case generatingOutput
     case completed
-    case failed(error: Error)
+    case failed(error: Error?)
   }
 
   public let modelURL: URL
