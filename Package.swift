@@ -29,5 +29,5 @@ let package = Package(
       ])
   ],
   cLanguageStandard: .gnu11,
-  cxxLanguageStandard: .gnucxx20
+  cxxLanguageStandard: .gnucxx1z
 )
